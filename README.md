@@ -1,2 +1,12 @@
 # Level-Crossing-LEDs
-Produces a realistic model railroad level crossing LED flash and activates crossing guard and/or sound
+Produces a realistic model railroad level crossing LED flash and activates crossbuck and/or sound  
+
+This sketch will detect model railroad activity over a section of track and activate a "level crossing" guard.  These road guards always have lights, and commonly have a crossbuck or road guard to warn road vehicles that a train is approaching the road crossing.  An audible warning (traditionally bells) is also used.  This sketch uses PWM with the LEDs to emulate incandescent lights.  Track detection is done via visible light sensors.  
+
+Two common "light sensor" boards are required, embedded below the track.  These sensors use light dependent resistors (LDRs) and produce a digital output with a transistor (i.e., they are either high or low, depending on the level of light).  The resistance change produced by a stand-alone LDR will not work.  One sensor should be placed under the track on each side of the road crossing.  These light sensors are not ideal, and have to be calibrated for the ambient light levels over a section of track.  However, once calibrated they provide consistent triggering of an occupied section of track.  Other [commercial solutions](https://readingcarcompany.com/signal-electronics/crossing-guard-basic-railroad-crossing-controller) require isolated track sections.  This is fine for detection of locomotives, but requires resistive axles on rolling stock, which not everyone uses.  They also, of course, require isolated track blocks.  There are [other solutions](https://www.iascaled.com/store/SND-SQUEAL) which use optical/video chips to detect motion, and are fantastic, but more complex. Note: The Squealer is open source.  
+
+The crossing is active for an adjustable time once the train leaves the detection area.  It starts as soon as a train (locomotive or rolling stock) is detected over either sensor and continues for a few seconds after both sensors detect no train.  A (very quick) PWM fade-in and fade-out of the LEDs makes them look more like incandescent lights.  A relay output is provided if you need to energize a crossbuck or activate a sound source.  
+
+*What's the difference between the two sketches?*  
+
+Very little.  The ATmega328 version just has the pin numbers set for an Arduino Uno or Nano that uses that chipset.  The ATtiny88 version has pin numbers configured for that chipset and is set up for common-anode wiring of the crossing LEDs (how the commercial crossing guards are commonly constructed).
